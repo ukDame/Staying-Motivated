@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staying Motivated - Interactive Checklist</title>
+    <style>
+        :root {
+            --primary-color: #f5e6a6; /* Pale Yellow */
+            --secondary-color: #d4c46a; /* Warm Gold */
+            --accent-color: #f8f1d5; /* Cream */
+            --light-color: #fffdf5; /* Off-White */
+            --dark-color: #5a543a; /* Earthy Brown */
+            --success-color: #a8b488; /* Soft Green */
+        }
+        
+        /* PALE YELLOW BANNER */
+        .checklist-banner {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -30px -30px 25px -30px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        .checklist-banner h1 {
+            color: var(--dark-color);
+            margin: 0;
+            font-size: 1.8em;
+            letter-spacing: 0.5px;
+        }
+        .checklist-banner .subtitle {
+            color: var(--dark-color);
+            margin: 8px 0 0;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #faf9f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .checklist-item:hover {
+            background-color: rgba(245, 230, 166, 0.1);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.3);
+            cursor: pointer;
+            margin-top: 3px;
+        }
+        
+        .checklist-text {
+            flex-grow: 1;
+        }
+        
+        .checklist-item label {
+            cursor: pointer;
+            display: block;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .notes-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin-left: 10px;
+            padding: 5px;
+        }
+        
+        .notes-btn:hover {
+            color: var(--dark-color);
+        }
+        
+        .notes-box {
+            display: none;
+            width: 100%;
+            margin-top: 10px;
+            margin-left: 30px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .notes-box h4 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 0.9em;
+        }
+        
+        .notes-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            min-height: 80px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--success-color);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .reflection {
+            margin-top: 30px;
+        }
+        
+        .reflection h3 {
+            margin-bottom: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            min-height: 100px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        
+        .celebration {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 8px;
+            margin: 30px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .reset-btn {
+            background-color: #c4b67a;
+        }
+        
+        .print-btn {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+        }
+        
+        .instructions {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .checklist-banner {
+                margin: -15px -15px 15px -15px;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PALE YELLOW BANNER -->
+        <div class="checklist-banner">
+            <h1>STAYING MOTIVATED</h1>
+            <p class="subtitle">How To Keep Going When the Going Gets Tough</p>
+        </div>
+
+        <div class="progress-text">Progress: <span id="progress-percent">0</span>%</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+        
+        <div class="celebration" id="celebration">
+            <h2>🚀 Motivation Restored! 🚀</h2>
+            <p>You've completed your motivation reboot checklist!</p>
+            <p><em>"One small action can reboot your whole mindset."</em></p>
+        </div>
+        
+        <div class="section">
+            <h2>Reconnect With Purpose</h2>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item1">
+                <div class="checklist-text">
+                    <label for="item1">What's my "why" for doing this? (Reconnect with the deeper reason)</label>
+                    <div class="notes-box" id="notes1">
+                        <h4>My Motivation Blueprint:</h4>
+                        <textarea placeholder="My deeper 'why' is...&#10;&#10;How I'll remind myself of this daily:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes1')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item2">
+                <div class="checklist-text">
+                    <label for="item2">What progress have I already made? (Even tiny steps count)</label>
+                    <div class="notes-box" id="notes2">
+                        <h4>Progress Tracker:</h4>
+                        <textarea placeholder="3 small wins I've achieved:&#10;1.&#10;2.&#10;3."></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes2')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item3">
+                <div class="checklist-text">
+                    <label for="item3">What would I tell a friend in this situation? (Now, tell it to yourself)</label>
+                    <div class="notes-box" id="notes3">
+                        <h4>Self-Compassion Statement:</h4>
+                        <textarea placeholder="To my friend I'd say...&#10;&#10;Now to myself:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes3')">📝 Plan</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Action Strategies</h2>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item4">
+                <div class="checklist-text">
+                    <label for="item4">Can I simplify the task or break it into smaller steps?</label>
+                    <div class="notes-box" id="notes4">
+                        <h4>Task Breakdown:</h4>
+                        <textarea placeholder="Current challenge:&#10;&#10;Simpler steps:&#10;1.&#10;2.&#10;3."></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes4')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item5">
+                <div class="checklist-text">
+                    <label for="item5">What reward can I plan once I take action? (It doesn't have to be big)</label>
+                    <div class="notes-box" id="notes5">
+                        <h4>Reward System:</h4>
+                        <textarea placeholder="After completing...&#10;&#10;I'll reward myself with..."></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes5')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item6">
+                <div class="checklist-text">
+                    <label for="item6">Is perfectionism slowing me down? (Progress > perfection)</label>
+                    <div class="notes-box" id="notes6">
+                        <h4>Perfectionism Check:</h4>
+                        <textarea placeholder="Where I'm being too perfectionistic:&#10;&#10;'Good enough' looks like:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes6')">📝 Plan</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Inspiration Boosters</h2>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item7">
+                <div class="checklist-text">
+                    <label for="item7">What inspired me to begin in the first place?</label>
+                    <div class="notes-box" id="notes7">
+                        <h4>Inspiration Journal:</h4>
+                        <textarea placeholder="My original inspiration was...&#10;&#10;How I can reconnect with that energy:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes7')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item8">
+                <div class="checklist-text">
+                    <label for="item8">What's one thing I can do next, just one?</label>
+                    <div class="notes-box" id="notes8">
+                        <h4>Next Small Step:</h4>
+                        <textarea placeholder="The very next action is...&#10;&#10;When I'll do it:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes8')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item9">
+                <div class="checklist-text">
+                    <label for="item9">Who could I ask for support or encouragement right now?</label>
+                    <div class="notes-box" id="notes9">
+                        <h4>Support Network:</h4>
+                        <textarea placeholder="People I can reach out to:&#10;1.&#10;2.&#10;&#10;What I'll ask for specifically:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes9')">📝 Plan</button>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox" id="item10">
+                <div class="checklist-text">
+                    <label for="item10">Can I visualize the satisfaction of completing this?</label>
+                    <div class="notes-box" id="notes10">
+                        <h4>Visualization Exercise:</h4>
+                        <textarea placeholder="How I'll feel when done:&#10;&#10;What success looks like:"></textarea>
+                    </div>
+                </div>
+                <button class="notes-btn" onclick="toggleNotes('notes10')">📝 Plan</button>
+            </div>
+        </div>
+        
+        <div class="reflection">
+            <h2>Motivation Reflection</h2>
+            
+            <div class="section">
+                <h3>Which strategy was most helpful today?</h3>
+                <textarea id="strategy-reflection" placeholder="The most effective technique was..."></textarea>
+                
+                <h3>What motivation obstacle did you overcome?</h3>
+                <textarea id="obstacle-reflection" placeholder="I pushed through..."></textarea>
+                
+                <h3>Tomorrow's motivation commitment:</h3>
+                <textarea id="commitment-reflection" placeholder="I will maintain momentum by..."></textarea>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="save-btn">Save Progress</button>
+            <button id="print-btn" class="print-btn" onclick="window.print()">Print Checklist</button>
+            <button id="reset-btn" class="reset-btn">Reset Checklist</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>How to Use This Checklist:</h3>
+            <ol>
+                <li><strong>Complete items</strong> whenever motivation dips</li>
+                <li><strong>Click 📝 Plan buttons</strong> to create personalized strategies</li>
+                <li><strong>Check items</strong> as you complete them</li>
+                <li><strong>Review reflections</strong> to track your motivation patterns</li>
+            </ol>
+            <p><em>Remember: Keep moving forward. One small action can reboot your whole mindset.</em></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            loadProgress();
+            
+            // Update progress when checkboxes change
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // Save button
+            document.getElementById('save-btn').addEventListener('click', saveProgress);
+            
+            // Reset button
+            document.getElementById('reset-btn').addEventListener('click', resetProgress);
+            
+            // Initial progress update
+            updateProgress();
+        });
+        
+        function toggleNotes(id) {
+            const notesBox = document.getElementById(id);
+            notesBox.style.display = notesBox.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            const progress = (checked.length / checkboxes.length) * 100;
+            
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-bar').textContent = Math.round(progress) + '%';
+            document.getElementById('progress-percent').textContent = Math.round(progress);
+            
+            // Show celebration if all checked
+            document.getElementById('celebration').style.display = 
+                checked.length === checkboxes.length ? 'block' : 'none';
+        }
+        
+        function saveProgress() {
+            const data = {
+                checkboxes: Array.from(document.querySelectorAll('input[type="checkbox"]')).map(cb => cb.checked),
+                notes: Array.from(document.querySelectorAll('.notes-box textarea')).map(ta => ta.value),
+                reflections: {
+                    strategy: document.getElementById('strategy-reflection').value,
+                    obstacle: document.getElementById('obstacle-reflection').value,
+                    commitment: document.getElementById('commitment-reflection').value
+                }
+            };
+            localStorage.setItem('motivationChecklist', JSON.stringify(data));
+            alert('Progress saved! Your motivation strategies are stored.');
+        }
+        
+        function loadProgress() {
+            const saved = JSON.parse(localStorage.getItem('motivationChecklist'));
+            if (saved) {
+                // Load checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
+                    cb.checked = saved.checkboxes[i];
+                });
+                
+                // Load notes
+                document.querySelectorAll('.notes-box textarea').forEach((ta, i) => {
+                    ta.value = saved.notes[i] || '';
+                });
+                
+                // Load reflections
+                document.getElementById('strategy-reflection').value = saved.reflections?.strategy || '';
+                document.getElementById('obstacle-reflection').value = saved.reflections?.obstacle || '';
+                document.getElementById('commitment-reflection').value = saved.reflections?.commitment || '';
+            }
+        }
+        
+        function resetProgress() {
+            if (confirm('Reset all progress? Your notes will be cleared.')) {
+                localStorage.removeItem('motivationChecklist');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
