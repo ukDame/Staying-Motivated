@@ -2,375 +2,504 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Makes the checklist work properly on phones and tablets -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staying Motivated Checklist - The UK Dame</title>
-    <link rel="stylesheet" href="https://cloudflare.com">
+
+    <title>THE UK DAME | Staying Motivated</title>
+
     <style>
-        /* ==========================================================================
-           THE UK DAME - CORE BRANDED HEADER & FOOTER ONLY
-           ========================================================================== */
-        @import url('https://googleapis.com');
+        /* =========================================================
+           THE UK DAME MASTER CHECKLIST
+           Brand colours:
+           Navy     #0A192F
+           Hot Pink #E83E8C
+           Warm Gold #C9A227
+           Soft Cream #FFF8E7
+           ========================================================= */
+
+        :root {
+            --navy: #0A192F;
+            --pink: #E83E8C;
+            --gold: #C9A227;
+            --cream: #FFF8E7;
+            --white: #FFFFFF;
+            --text: #172033;
+            --soft-navy: #24344D;
+            --border: #D9D0BE;
+        }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Light, bright, clean background */
-            color: #333333; /* Dark traditional text for maximum readability */
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--cream);
+            color: var(--text);
             line-height: 1.6;
-            padding-bottom: 60px;
         }
 
-        /* 1. BRANDED HEADER AREA (Navy, Pink, Gold, Cream) */
-        .brand-banner {
-            background-color: #0A192F; /* Deep Navy Brand Background */
-            color: #FFF8E7; /* Cream Text */
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        header {
+            background: var(--navy);
+            color: var(--white);
             text-align: center;
-            padding: 40px 20px;
-            border-bottom: 4px solid #D4AF37; /* Warm Gold Border Accent */
+            padding: 32px 20px 28px;
+            border-bottom: 6px solid var(--pink);
         }
 
-        .brand-badge {
-            border: 1px solid #FF1493; /* Hot Pink Accent Border */
-            color: #FF1493; /* Hot Pink Text */
-            padding: 3px 12px;
-            font-size: 0.75rem;
+        .crown {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 8px;
+            display: block;
+        }
+
+        .brand {
+            font-size: 19px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: var(--white);
+            margin-bottom: 14px;
+        }
+
+        .title {
+            font-size: 34px;
+            line-height: 1.15;
+            margin: 0;
+            color: var(--white);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 12px;
         }
 
-        .brand-banner h1 {
-            color: #FFF8E7; /* Clean Brand Cream */
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
+        .subtitle {
+            margin: 12px auto 0;
+            font-size: 17px;
+            color: #F7EBD2;
+            max-width: 650px;
         }
 
-        .brand-banner .subtitle {
-            color: rgba(255, 248, 231, 0.7);
-            font-size: 1rem;
+        /* =========================================================
+           MAIN CONTENT
+           ========================================================= */
+
+        main {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 35px 20px 50px;
         }
 
-        /* 2. MAIN USER FRIENDLY CONTENT LAYER (Light & Traditional) */
-        .main-content {
-            max-width: 680px;
-            margin: 30px auto;
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 30px 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Simple Light Progress Bar */
-        .progress-box {
-            background: #f1f5f9;
+        .intro {
+            background: var(--white);
+            border-left: 5px solid var(--gold);
+            padding: 22px 24px;
+            margin-bottom: 28px;
             border-radius: 8px;
-            padding: 12px 15px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            box-shadow: 0 2px 8px rgba(10, 25, 47, 0.06);
         }
 
-        .progress-text {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #0A192F;
-            min-width: 40px;
+        .intro p {
+            margin: 0;
+            font-size: 17px;
         }
 
-        .progress-container {
-            background-color: #cbd5e1;
+        /* =========================================================
+           CHECKLIST
+           ========================================================= */
+
+        .checklist {
+            background: rgba(255, 255, 255, 0.45);
             border-radius: 10px;
-            height: 8px;
-            flex-grow: 1;
-            overflow: hidden;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
         }
 
-        .progress-bar {
-            background-color: #FF1493; /* Hot Pink used as the active accent indicator */
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* Clean Content Typography */
-        h2 {
-            color: #0A192F;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 30px 0 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 6px;
-        }
-
-        /* Traditional Checklist Rows */
-        .checklist-row {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #f1f5f9;
-        }
-
-        .row-main {
+        .question {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 15px;
+            padding: 19px 10px;
+            border-bottom: 1px solid var(--border);
             cursor: pointer;
         }
 
-        input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 3px;
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        .question input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 27px;
+            height: 27px;
+            min-width: 27px;
+            border: 2px solid var(--navy);
+            border-radius: 5px;
+            background: var(--white);
             cursor: pointer;
-            accent-color: #FF1493; /* Simple browser-native pink checkbox fallback */
+            position: relative;
+            margin-top: 1px;
         }
 
-        .item-text {
-            font-size: 1rem;
-            color: #333333;
+        .question input:checked {
+            background: var(--pink);
+            border-color: var(--pink);
         }
 
-        input[type="checkbox"]:checked + .item-text {
-            color: #94a3b8;
+        .question input:checked::after {
+            content: "✓";
+            position: absolute;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+            left: 4px;
+            top: -2px;
+        }
+
+        .question label {
+            font-size: 18px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .question input:checked + label {
+            color: #687080;
             text-decoration: line-through;
         }
 
-        /* Traditional Reflection Input Fields */
-        .reflection-area {
-            margin-top: 10px;
-            padding-left: 30px;
-        }
+        /* =========================================================
+           FINAL MESSAGE
+           ========================================================= */
 
-        .reflection-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 60px;
-            background-color: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            color: #333333;
-            padding: 10px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            resize: vertical;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #FF1493;
-        }
-
-        /* Simple Success Notification Banner */
-        .success-banner {
-            background-color: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 8px;
-            padding: 15px;
+        .closing {
             text-align: center;
-            margin-top: 20px;
-            color: #166534;
-            display: none;
+            margin: 35px 0 25px;
+            padding: 25px;
         }
 
-        /* Practical Interaction Buttons */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 30px;
+        .closing h2 {
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .closing p {
+            font-size: 17px;
+        }
+
+        .gold-line {
+            width: 70px;
+            height: 3px;
+            background: var(--gold);
+            margin: 0 auto 20px;
+        }
+
+        /* =========================================================
+           BUTTONS
+           ========================================================= */
+
+        .buttons {
+            text-align: center;
+            margin: 25px 0;
         }
 
         button {
-            background-color: #ffffff;
-            border: 1px solid #cbd5e1;
-            color: #333333;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 6px;
+            border: none;
+            border-radius: 25px;
+            padding: 13px 24px;
+            margin: 5px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
+        }
+
+        .print-button {
+            background: var(--pink);
+            color: var(--white);
+        }
+
+        .reset-button {
+            background: var(--navy);
+            color: var(--white);
         }
 
         button:hover {
-            background-color: #f8f9fa;
-            border-color: #94a3b8;
+            opacity: 0.88;
+            transform: translateY(-1px);
         }
 
-        button.primary-btn {
-            background-color: #0A192F;
-            color: #ffffff;
-            border: none;
-        }
+        /* =========================================================
+           FOOTER
+           ========================================================= */
 
-        button.primary-btn:hover {
-            background-color: #112240;
-        }
-
-        /* Instructions block */
-        .instructions-box {
-            margin-top: 25px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            padding: 15px;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .instructions-box h5 {
-            color: #333333;
-            margin-bottom: 5px;
-        }
-
-        .instructions-box ol {
-            padding-left: 15px;
-        }
-
-        /* 3. BRANDED FUNNEL FOOTER LINK */
-        .footer-cta {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        footer {
+            background: var(--navy);
+            color: var(--white);
             text-align: center;
-            font-size: 0.9rem;
-            color: #64748b;
+            padding: 25px 20px;
+            font-size: 14px;
         }
 
-        .cta-link {
-            color: #FF1493;
-            text-decoration: none;
-            font-weight: 600;
+        footer .footer-brand {
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 7px;
         }
 
-        .cta-link:hover {
-            text-decoration: underline;
+        footer p {
+            margin: 5px 0;
         }
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 25px 15px 23px;
+            }
+
+            .title {
+                font-size: 27px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            main {
+                padding: 25px 14px 40px;
+            }
+
+            .intro {
+                padding: 18px;
+            }
+
+            .question {
+                padding: 17px 5px;
+                gap: 12px;
+            }
+
+            .question label {
+                font-size: 17px;
+            }
+
+            .checklist {
+                padding: 5px 12px;
+            }
+        }
+
+        /* =========================================================
+           PRINT / SAVE AS PDF
+           ========================================================= */
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .buttons {
+                display: none;
+            }
+
+            footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .question input {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            main {
+                padding-top: 20px;
+            }
+        }
+
     </style>
 </head>
+
 <body>
 
-    <!-- BRANDED HEADER OVERLAY -->
-    <div class="brand-banner">
-        <span class="brand-badge">The UK Dame</span>
-        <h1>Staying Motivated</h1>
-        <p class="subtitle">How To Keep Going When the Going Gets Tough</p>
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header>
+
+    <!-- Gold crown icon -->
+    <svg class="crown" viewBox="0 0 100 100"
+         xmlns="http://www.w3.org/2000/svg"
+         aria-label="The UK Dame crown">
+
+        <path
+            d="M15 72 L8 30 L32 48 L50 18 L68 48 L92 30 L85 72 Z"
+            fill="#C9A227"/>
+
+        <rect
+            x="15"
+            y="72"
+            width="70"
+            height="10"
+            rx="3"
+            fill="#C9A227"/>
+
+        <circle cx="8" cy="27" r="5" fill="#C9A227"/>
+        <circle cx="50" cy="15" r="5" fill="#C9A227"/>
+        <circle cx="92" cy="27" r="5" fill="#C9A227"/>
+
+    </svg>
+
+    <div class="brand">THE UK DAME</div>
+
+    <h1 class="title">STAYING MOTIVATED</h1>
+
+    <div class="subtitle">
+        A practical checklist to keep your momentum going and stay focused on your goals.
     </div>
 
-    <!-- MAIN LIGHT USER FORM CONTENT -->
-    <div class="main-content">
+</header>
 
-        <div class="progress-box">
-            <div class="progress-text" id="progressNumber">0%</div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+
+<main>
+
+    <div class="intro">
+        <p>
+            Motivation isn't something that just happens—it's built step by step. 
+            Use this checklist to check in with your goals, recharge your drive, and keep moving forward.
+        </p>
+    </div>
+
+    <!-- CHECKLIST QUESTIONS -->
+
+    <div class="checklist">
+
+        <div class="question">
+            <input type="checkbox" id="q1">
+            <label for="q1">
+                Have you identified your main "why" for what you want to achieve today?
+            </label>
         </div>
 
-        <h2><i class="fa-solid fa-compass"></i> Reconnect With Purpose</h2>
-        
-        <div class="checklist-row">
-            <label class="row-main">
-                <input type="checkbox" class="task-check" onclick="updateProgress()">
-                <span class="item-text">What's my "why" for doing this? (Reconnect with the deeper reason)</span>
+        <div class="question">
+            <input type="checkbox" id="q2">
+            <label for="q2">
+                Have you broken down your next big task into one small, manageable step?
             </label>
-            <div class="reflection-area">
-                <span class="reflection-label">My Motivation Blueprint:</span>
-                <textarea placeholder="Type your notes here..."></textarea>
-            </div>
         </div>
 
-        <div class="checklist-row">
-            <label class="row-main">
-                <input type="checkbox" class="task-check" onclick="updateProgress()">
-                <span class="item-text">What progress have I already made? (Even tiny steps count)</span>
+        <div class="question">
+            <input type="checkbox" id="q3">
+            <label for="q3">
+                Have you minimised or set aside major distractions before starting?
             </label>
-            <div class="reflection-area">
-                <span class="reflection-label">Progress Tracker:</span>
-                <textarea placeholder="Type your notes here..."></textarea>
-            </div>
         </div>
 
-        <div class="checklist-row">
-            <label class="row-main">
-                <input type="checkbox" class="task-check" onclick="updateProgress()">
-                <span class="item-text">What would I tell a friend in this situation? (Now, tell it to yourself)</span>
+        <div class="question">
+            <input type="checkbox" id="q4">
+            <label for="q4">
+                Did you acknowledge a recent piece of progress, no matter how minor?
             </label>
-            <div class="reflection-area">
-                <span class="reflection-label">Self-Compassion Statement:</span>
-                <textarea placeholder="Type your notes here..."></textarea>
-            </div>
         </div>
 
-        <h2><i class="fa-solid fa-bolt"></i> Action Strategies</h2>
-
-        <div class="checklist-row">
-            <label class="row-main">
-                <input type="checkbox" class="task-check" onclick="updateProgress()">
-                <span class="item-text">Can I simplify the task or break it into smaller steps?</span>
+        <div class="question">
+            <input type="checkbox" id="q5">
+            <label for="q5">
+                Have you scheduled a short break to rest and clear your mind?
             </label>
+        </div>
 
-Task Breakdown:
+        <div class="question">
+            <input type="checkbox" id="q6">
+            <label for="q6">
+                Are you focusing on taking action today rather than waiting for perfection?
+            </label>
+        </div>
 
+    </div>
 
-Inspiration Boosters
-Inspiration Journal:
+    <!-- CLOSING MESSAGE -->
 
+    <div class="closing">
 
-Motivation Restored!
-"One small action can reboot your whole mindset."
-Print Progress
-Reset Checklist
-How to Use This Checklist:
+        <div class="gold-line"></div>
 
-Complete items whenever motivation dips.
-Click checkboxes to track your growth milestones.
-Review details regularly to monitor changes.
+        <h2>Small actions build big momentum.</h2>
 
-This digital tool is a free companion to the mini-book collection.
-Explore the books on Amazon →
+        <p>
+            Keep going—each step forward counts.
+        </p>
 
-function updateProgress() {
-const checkboxes = document.querySelectorAll('.task-check');
-const checked = document.querySelectorAll('.task-check:checked');
-const percent = checkboxes.length ? Math.round((checked.length / checkboxes.length) * 100) : 0;
-document.getElementById('progressBar').style.width = percent + '%';
-document.getElementById('progressNumber').innerText = percent + '%';
-const banner = document.getElementById('successBanner');
-if (percent === 100) {
-banner.style.display = 'block';
-} else {
-banner.style.display = 'none';
-}
-}
-function resetForm() {
-const checkboxes = document.querySelectorAll('.task-check');
-checkboxes.forEach(cb => cb.checked = false);
-const textareas = document.querySelectorAll('textarea');
-textareas.forEach(ta => ta.value = '');
-updateProgress();
-}
+    </div>
 
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <button class="print-button" onclick="window.print()">
+            🖨 Print / Save as PDF
+        </button>
+
+        <button class="reset-button" onclick="resetChecklist()">
+            Reset Checklist
+        </button>
+
+    </div>
+
+</main>
 
 
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+    <div class="footer-brand">THE UK DAME</div>
+
+    <p>Making the Third Act count.</p>
+
+    <p>© 2026 The UK Dame</p>
+
+</footer>
 
 
+<!-- =========================================================
+     SIMPLE JAVASCRIPT
+     ========================================================= -->
 
+<script>
+
+    function resetChecklist() {
+
+        const boxes = document.querySelectorAll(
+            '.question input[type="checkbox"]'
+        );
+
+        boxes.forEach(function(box) {
+            box.checked = false;
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
