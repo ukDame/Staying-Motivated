@@ -4,252 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staying Motivated - Interactive Checklist</title>
-    <style>
-        :root {
-            --primary-color: #f5e6a6; /* Pale Yellow */
-            --secondary-color: #d4c46a; /* Warm Gold */
-            --accent-color: #f8f1d5; /* Cream */
-            --light-color: #fffdf5; /* Off-White */
-            --dark-color: #5a543a; /* Earthy Brown */
-            --success-color: #a8b488; /* Soft Green */
-        }
-        
-        /* PALE YELLOW BANNER */
-        .checklist-banner {
-            background-color: var(--primary-color);
-            color: var(--dark-color);
-            padding: 25px 0;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            margin: -30px -30px 25px -30px;
-            border-bottom: 2px solid var(--secondary-color);
-        }
-        .checklist-banner h1 {
-            color: var(--dark-color);
-            margin: 0;
-            font-size: 1.8em;
-            letter-spacing: 0.5px;
-        }
-        .checklist-banner .subtitle {
-            color: var(--dark-color);
-            margin: 8px 0 0;
-            font-style: italic;
-            font-weight: 500;
-        }
+    <style>/* ==========================================================================
+   THE UK DAME - UNIVERSAL APPS CORE STYLES
+   Colors: Navy (#0A192F), Hot Pink (#FF1493), Warm Gold (#D4AF37), Cream (#FFF8E7)
+   ========================================================================== */
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #faf9f0;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .section {
-            margin-bottom: 30px;
-            background-color: var(--light-color);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        
-        .checklist-item:hover {
-            background-color: rgba(245, 230, 166, 0.1);
-        }
-        
-        .checklist-item input[type="checkbox"] {
-            margin-right: 15px;
-            transform: scale(1.3);
-            cursor: pointer;
-            margin-top: 3px;
-        }
-        
-        .checklist-text {
-            flex-grow: 1;
-        }
-        
-        .checklist-item label {
-            cursor: pointer;
-            display: block;
-            font-weight: 500;
-            color: var(--dark-color);
-        }
-        
-        .notes-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--secondary-color);
-            font-size: 1.1em;
-            margin-left: 10px;
-            padding: 5px;
-        }
-        
-        .notes-btn:hover {
-            color: var(--dark-color);
-        }
-        
-        .notes-box {
-            display: none;
-            width: 100%;
-            margin-top: 10px;
-            margin-left: 30px;
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid var(--accent-color);
-        }
-        
-        .notes-box h4 {
-            margin-top: 0;
-            color: var(--secondary-color);
-            font-size: 0.9em;
-        }
-        
-        .notes-box textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--accent-color);
-            border-radius: 5px;
-            min-height: 80px;
-            font-family: inherit;
-            resize: vertical;
-        }
-        
-        .progress-container {
-            margin: 30px 0;
-            background-color: #e9ecef;
-            border-radius: 10px;
-            height: 20px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background-color: var(--success-color);
-            width: 0%;
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .progress-text {
-            text-align: center;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-        
-        .reflection {
-            margin-top: 30px;
-        }
-        
-        .reflection h3 {
-            margin-bottom: 10px;
-        }
-        
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--accent-color);
-            border-radius: 5px;
-            min-height: 100px;
-            margin-bottom: 15px;
-            font-family: inherit;
-        }
-        
-        .celebration {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background-color: var(--success-color);
-            color: white;
-            border-radius: 8px;
-            margin: 30px 0;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        button {
-            padding: 10px 20px;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: var(--dark-color);
-        }
-        
-        .reset-btn {
-            background-color: #c4b67a;
-        }
-        
-        .print-btn {
-            background-color: var(--primary-color);
-            color: var(--dark-color);
-        }
-        
-        .instructions {
-            font-size: 0.9em;
-            color: var(--secondary-color);
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--accent-color);
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .section {
-                padding: 15px;
-            }
-            
-            .checklist-banner {
-                margin: -15px -15px 15px -15px;
-                padding: 15px 0;
-            }
-        }
+/* Modern Font and Reset */
+@import url('https://googleapis.com');
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: #0A192F; /* Deep Navy Background */
+    color: #FFF8E7; /* Soft Cream for Easy Reading */
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Master Centered Container */
+.container {
+    max-width: 650px;
+    margin: 40px auto;
+    background: rgba(255, 248, 231, 0.03); /* Subtle glass tint */
+    border: 1px solid rgba(212, 175, 55, 0.2); /* Soft Gold border hint */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Headers and Titles */
+h1 {
+    color: #FF1493; /* Hot Pink Statement Title */
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: #D4AF37; /* Warm Gold Section Anchors */
+    font-size: 1.4rem;
+    border-bottom: 2px solid #FF1493;
+    padding-bottom: 8px;
+    margin-top: 35px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+h3, h4 {
+    color: #FFF8E7;
+    margin-bottom: 10px;
+}
+
+/* Premium Animated Progress Bar */
+.progress-container {
+    background-color: rgba(255, 248, 231, 0.1);
+    border-radius: 20px;
+    margin: 25px 0;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(255, 248, 231, 0.1);
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #FF1493, #D4AF37); /* Pink to Gold Gradient */
+    height: 100%;
+    width: 0%; /* Dynamic via JS */
+    transition: width 0.4s ease-in-out;
+}
+
+/* Checklist Rows transformed into Modern Interactive Cards */
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    background: rgba(255, 248, 231, 0.05);
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.checklist-item:hover {
+    background: rgba(255, 248, 231, 0.08);
+    border-left: 4px solid #D4AF37; /* Gold highlight on hover */
+    transform: translateX(2px);
+}
+
+/* Clean Custom Styled Checkboxes */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #FF1493; /* Hot Pink Border */
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 2px;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #FF1493;
+    border-color: #FF1493;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    color: #FFF8E7;
+    font-size: 16px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Checked Row State changes label color opacity */
+input[type="checkbox"]:checked + label {
+    color: rgba(255, 248, 231, 0.5);
+    text-decoration: line-through rgba(255, 248, 231, 0.3);
+}
+
+/* Modernized Custom Reflection/Note Areas (📝 Notepad fields) */
+textarea, input[type="text"] {
+    width: 100%;
+    background-color: rgba(10, 25, 47, 0.7); /* Deep Navy Inner Field */
+    border: 1px solid rgba(255, 248, 231, 0.2);
+    border-radius: 8px;
+    color: #FFF8E7;
+    padding: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border: 1px solid #D4AF37; /* Gold Glow on active field */
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Premium Navigation & Action Buttons */
+button, .btn {
+    background-color: #FF1493; /* Hot Pink Fill */
+    color: #FFF8E7;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+}
+
+button:hover {
+    background-color: #FFF8E7;
+    color: #0A192F; /* Swaps style for striking visibility */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Fixed Universal Footer promoting your Amazon Books */
+.amazon-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 25px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.05));
+}
+
+.amazon-footer p {
+    color: #FFF8E7;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.amazon-footer a {
+    color: #D4AF37; /* Gold Link styling */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.amazon-footer a:hover {
+    color: #FF1493;
+}
+
     </style>
 </head>
 <body>
