@@ -108,30 +108,90 @@
         }
 
         /* =========================================================
-           CHECKLIST
+           PROGRESS BAR
            ========================================================= */
+
+        .progress-container {
+            background: var(--white);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--navy);
+        }
+
+        .progress-bar-bg {
+            background: #EAE6DF;
+            height: 14px;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: var(--pink);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .success-banner {
+            display: none;
+            background: var(--gold);
+            color: var(--navy);
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        /* =========================================================
+           CHECKLIST & SECTIONS
+           ========================================================= */
+
+        .section-title {
+            color: var(--navy);
+            font-size: 22px;
+            margin: 30px 0 15px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+        }
 
         .checklist {
             background: rgba(255, 255, 255, 0.45);
             border-radius: 10px;
             padding: 10px 20px;
             border: 1px solid var(--border);
+            margin-bottom: 25px;
         }
 
         .question {
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding: 19px 10px;
+            flex-direction: column;
+            gap: 8px;
+            padding: 16px 10px;
             border-bottom: 1px solid var(--border);
-            cursor: pointer;
         }
 
         .question:last-child {
             border-bottom: none;
         }
 
-        .question input {
+        .question-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .question input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
             width: 27px;
@@ -145,12 +205,12 @@
             margin-top: 1px;
         }
 
-        .question input:checked {
+        .question input[type="checkbox"]:checked {
             background: var(--pink);
             border-color: var(--pink);
         }
 
-        .question input:checked::after {
+        .question input[type="checkbox"]:checked::after {
             content: "✓";
             position: absolute;
             color: var(--white);
@@ -166,35 +226,41 @@
             flex: 1;
         }
 
-        .question input:checked + label {
+        .question input[type="checkbox"]:checked + label {
             color: #687080;
             text-decoration: line-through;
         }
 
-        /* =========================================================
-           FINAL MESSAGE
-           ========================================================= */
-
-        .closing {
-            text-align: center;
-            margin: 35px 0 25px;
-            padding: 25px;
+        .note-box {
+            margin-top: 8px;
+            margin-left: 42px;
         }
 
-        .closing h2 {
-            color: var(--navy);
-            margin-bottom: 10px;
+        .note-box label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #555;
+            margin-bottom: 4px;
+            text-transform: uppercase;
         }
 
-        .closing p {
-            font-size: 17px;
+        textarea {
+            width: 100%;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            background: var(--white);
         }
 
-        .gold-line {
-            width: 70px;
-            height: 3px;
-            background: var(--gold);
-            margin: 0 auto 20px;
+        textarea:focus {
+            outline: 2px solid var(--pink);
+            border-color: transparent;
         }
 
         /* =========================================================
@@ -203,7 +269,7 @@
 
         .buttons {
             text-align: center;
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         button {
@@ -256,46 +322,6 @@
         }
 
         /* =========================================================
-           MOBILE
-           ========================================================= */
-
-        @media (max-width: 600px) {
-
-            header {
-                padding: 25px 15px 23px;
-            }
-
-            .title {
-                font-size: 27px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-
-            main {
-                padding: 25px 14px 40px;
-            }
-
-            .intro {
-                padding: 18px;
-            }
-
-            .question {
-                padding: 17px 5px;
-                gap: 12px;
-            }
-
-            .question label {
-                font-size: 17px;
-            }
-
-            .checklist {
-                padding: 5px 12px;
-            }
-        }
-
-        /* =========================================================
            PRINT / SAVE AS PDF
            ========================================================= */
 
@@ -319,7 +345,7 @@
                 print-color-adjust: exact;
             }
 
-            .question input {
+            .question input[type="checkbox"] {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -382,70 +408,60 @@
 
     <div class="intro">
         <p>
-            Motivation isn't something that just happens—it's built step by step. 
-            Use this checklist to check in with your goals, recharge your drive, and keep moving forward.
+            Complete items whenever motivation dips. Click checkboxes to track your growth milestones. Review details regularly to monitor changes.
         </p>
     </div>
 
-    <!-- CHECKLIST QUESTIONS -->
+    <!-- PROGRESS BAR -->
+
+    <div class="progress-container">
+        <div class="progress-text">
+            <span>Print Progress</span>
+            <span id="progressNumber">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="success-banner" id="successBanner">
+            🎉 Motivation Restored! One small action can reboot your whole mindset.
+        </div>
+    </div>
+
+    <!-- INSPIRATION BOOSTERS -->
+
+    <h2 class="section-title">Inspiration Boosters</h2>
 
     <div class="checklist">
 
         <div class="question">
-            <input type="checkbox" id="q1">
-            <label for="q1">
-                Have you identified your main "why" for what you want to achieve today?
-            </label>
-        </div>
-
-        <div class="question">
-            <input type="checkbox" id="q2">
-            <label for="q2">
-                Have you broken down your next big task into one small, manageable step?
-            </label>
-        </div>
-
-        <div class="question">
-            <input type="checkbox" id="q3">
-            <label for="q3">
-                Have you minimised or set aside major distractions before starting?
-            </label>
-        </div>
-
-        <div class="question">
-            <input type="checkbox" id="q4">
-            <label for="q4">
-                Did you acknowledge a recent piece of progress, no matter how minor?
-            </label>
-        </div>
-
-        <div class="question">
-            <input type="checkbox" id="q5">
-            <label for="q5">
-                Have you scheduled a short break to rest and clear your mind?
-            </label>
-        </div>
-
-        <div class="question">
-            <input type="checkbox" id="q6">
-            <label for="q6">
-                Are you focusing on taking action today rather than waiting for perfection?
-            </label>
+            <div class="question-label">
+                <input type="checkbox" id="q1" class="task-check" onclick="updateProgress()">
+                <label for="q1">What would I tell a friend in this situation? (Now, tell it to yourself)</label>
+            </div>
+            <div class="note-box">
+                <label for="note1">Self-Compassion Statement:</label>
+                <textarea id="note1" placeholder="Type your notes here..."></textarea>
+            </div>
         </div>
 
     </div>
 
-    <!-- CLOSING MESSAGE -->
+    <!-- ACTION STRATEGIES -->
 
-    <div class="closing">
+    <h2 class="section-title">Action Strategies</h2>
 
-        <div class="gold-line"></div>
+    <div class="checklist">
 
-        <h2>Small actions build big momentum.</h2>
-
-        <p>
-            Keep going—each step forward counts.
-        </p>
+        <div class="question">
+            <div class="question-label">
+                <input type="checkbox" id="q2" class="task-check" onclick="updateProgress()">
+                <label for="q2">Can I simplify the task or break it into smaller steps?</label>
+            </div>
+            <div class="note-box">
+                <label for="note2">Task Breakdown:</label>
+                <textarea id="note2" placeholder="Type your notes here..."></textarea>
+            </div>
+        </div>
 
     </div>
 
@@ -457,7 +473,7 @@
             🖨 Print / Save as PDF
         </button>
 
-        <button class="reset-button" onclick="resetChecklist()">
+        <button class="reset-button" onclick="resetForm()">
             Reset Checklist
         </button>
 
@@ -482,21 +498,35 @@
 
 
 <!-- =========================================================
-     SIMPLE JAVASCRIPT
+     JAVASCRIPT FUNCTIONALITY
      ========================================================= -->
 
 <script>
 
-    function resetChecklist() {
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.task-check');
+        const checked = document.querySelectorAll('.task-check:checked');
+        const percent = checkboxes.length ? Math.round((checked.length / checkboxes.length) * 100) : 0;
+        
+        document.getElementById('progressBar').style.width = percent + '%';
+        document.getElementById('progressNumber').innerText = percent + '%';
+        
+        const banner = document.getElementById('successBanner');
+        if (percent === 100) {
+            banner.style.display = 'block';
+        } else {
+            banner.style.display = 'none';
+        }
+    }
 
-        const boxes = document.querySelectorAll(
-            '.question input[type="checkbox"]'
-        );
-
-        boxes.forEach(function(box) {
-            box.checked = false;
-        });
-
+    function resetForm() {
+        const checkboxes = document.querySelectorAll('.task-check');
+        checkboxes.forEach(cb => cb.checked = false);
+        
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(ta => ta.value = '');
+        
+        updateProgress();
     }
 
 </script>
